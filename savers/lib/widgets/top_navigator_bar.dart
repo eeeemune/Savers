@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:savers/theme/theme.dart';
+import 'package:flutter/material.dart';
 
 class TopNavigatorBar extends StatelessWidget {
   @override
@@ -8,11 +8,36 @@ class TopNavigatorBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.max,
       children: [
-        Container(
+        const SizedBox(
           height: 50,
-          color: ColorPalette.black,
-          child: const Text("GOGOGOGOGOGOGO"),
-        )
+          child: Icon(Icons.favorite_border,
+              color: ColorPalette.fontGray, size: 24),
+        ),
+        const SizedBox(width: 16),
+        Material(
+            child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: const [
+            Text(
+              "현재 심박수",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                color: ColorPalette.fontGray,
+                fontSize: 14,
+              ),
+            ),
+            SizedBox(height: 4),
+            Text(
+              "74bpm",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                  color: ColorPalette.black,
+                  fontSize: 16,
+                  fontFamily: "Pretendard",
+                  fontWeight: FontWeight.w800),
+            )
+          ],
+        ))
       ],
     );
   }
