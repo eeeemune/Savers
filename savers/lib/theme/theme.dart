@@ -9,6 +9,7 @@ class ColorPalette {
   static const Color fontGray = Color(0xff82878D);
   static const Color lineGray = Color(0xffE5E8EB);
   static const Color hyperLink = Color(0xff3485FF);
+  static const Color blue = Color(0xFF1C6EEA);
   Color get(String colorName) {
     switch (colorName) {
       case "indigo":
@@ -27,6 +28,8 @@ class ColorPalette {
         return lineGray;
       case "hyperLink":
         return hyperLink;
+      case "blue":
+        return blue;
       default:
         throw Exception("Invalid color name");
     }
@@ -68,4 +71,15 @@ class NeumorphismCard {
         ),
         child: child);
   }
+}
+
+class Shadows {
+  static List<BoxShadow> card = [
+    BoxShadow(
+      color: Color(0x4C6277AE),
+      blurRadius: 10,
+      offset: Offset(0, 2),
+      spreadRadius: 0,
+    )
+  ];
 }

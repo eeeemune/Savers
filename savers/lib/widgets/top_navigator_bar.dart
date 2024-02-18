@@ -14,8 +14,7 @@ class TopNavigatorBar extends StatelessWidget {
               color: ColorPalette.fontGray, size: 24),
         ),
         const SizedBox(width: 16),
-        Material(
-            child: Column(
+        Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
             Text(
@@ -37,7 +36,7 @@ class TopNavigatorBar extends StatelessWidget {
                   fontWeight: FontWeight.w800),
             )
           ],
-        ))
+        )
       ],
     );
   }
