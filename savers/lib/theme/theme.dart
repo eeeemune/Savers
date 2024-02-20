@@ -38,6 +38,7 @@ class ColorPalette {
 
 class SizeParameters {
   static const double page_padding = 16.0;
+  static const double bottomNavigatorHeight = 100;
 }
 
 class NeumorphismCard {

@@ -5,8 +5,7 @@ import 'package:savers/views/map/map_view.dart';
 abstract class NeumorphismBtn extends StatelessWidget {
   late Widget content;
   late Widget card;
-  // void onClick();
-  void onClick(BuildContext context);
+  void onClickCallback();
 
   Widget get getCard => this.card;
   set setCard(Widget value) {
@@ -48,24 +47,20 @@ abstract class NeumorphismBtn extends StatelessWidget {
                   child: Icon(Icons.chevron_right, color: ColorPalette.black))
             ],
           )),
-      onTap: () => onClick(context),
+      onTap: () => onClickCallback(),
     );
   }
 }
 
 class sendWhoCard extends NeumorphismBtn {
   late String where;
+  final Function() pageChangeCallback;
   @override
-  void onClick(BuildContext context) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => Scaffold(
-                  body: MapView(),
-                )));
+  void onClickCallback() {
+    pageChangeCallback();
   }
 
-  sendWhoCard({required String this.where}) {
+  sendWhoCard({required this.where, required this.pageChangeCallback}) {
     this.where = where;
     this.content = Text(
       where,

@@ -4,56 +4,65 @@ import 'package:savers/widgets/send_who_card.dart';
 import 'package:savers/widgets/top_navigator_bar.dart';
 import 'package:savers/widgets/title.dart';
 import 'package:savers/views/map/map_view.dart';
+import 'package:savers/views/SOS/SOS_view.dart';
 
 class HomeView extends StatelessWidget {
-  const HomeView({Key? key}) : super(key: key);
+  final Function(int) changePage;
+  const HomeView({Key? key, required this.changePage}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView(children: [
-      Material(
-          color: ColorPalette.backGray,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 16),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: TopNavigatorBar(),
-              ),
-              const SizedBox(height: 24),
-              Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  width: double.infinity,
-                  child: title([
-                    TextSpan(text: "평균적으로 "),
-                    TextSpan(
-                        text: "2분",
-                        style: TextStyle(
-                            color: ColorPalette.red,
-                            fontWeight: FontWeight.w700)),
-                    TextSpan(
-                        text: "이내에 ",
-                        style: TextStyle(fontWeight: FontWeight.w700)),
-                    TextSpan(
-                        text: "\n구조대가 도착",
-                        style: TextStyle(fontWeight: FontWeight.w700)),
-                    TextSpan(text: "해요"),
-                  ])),
-              const SizedBox(height: 16),
-              Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: SizeParameters.page_padding),
-                  child: _where_911()),
-              const SizedBox(height: 24),
-              Align(alignment: Alignment.center, child: _SOS()),
-              const SizedBox(height: 24),
-              Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: SizeParameters.page_padding),
-                  child: _sendWho()),
-            ],
-          ))
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 16),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: TopNavigatorBar(),
+          ),
+          const SizedBox(height: 24),
+          Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              width: double.infinity,
+              child: title([
+                TextSpan(text: "평균적으로 "),
+                TextSpan(
+                    text: "2분",
+                    style: TextStyle(
+                        color: ColorPalette.red, fontWeight: FontWeight.w700)),
+                TextSpan(
+                    text: "이내에 ",
+                    style: TextStyle(fontWeight: FontWeight.w700)),
+                TextSpan(
+                    text: "\n구조대가 도착",
+                    style: TextStyle(fontWeight: FontWeight.w700)),
+                TextSpan(text: "해요"),
+              ])),
+          const SizedBox(height: 16),
+          Container(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: SizeParameters.page_padding),
+              child: _where_911()),
+          const SizedBox(height: 24),
+          Align(
+              alignment: Alignment.center,
+              child: _SOS(
+                onClick: () => {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SOSView()))
+                },
+              )),
+          const SizedBox(height: 24),
+          Container(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: SizeParameters.page_padding),
+              child: _SendWho(
+                onClickCallback: changePage,
+              )),
+          SizedBox(height: SizeParameters.bottomNavigatorHeight)
+        ],
+      )
     ]);
   }
 }
@@ -68,21 +77,15 @@ Widget _where_911() {
 }
 
 class _SOS extends StatelessWidget {
-  const _SOS({Key? key}) : super(key: key);
+  final Function() onClick;
+  const _SOS({Key? key, required this.onClick}) : super(key: key);
   @override
   Widget build(context) {
     return SizedBox(
         width: 248,
         height: 248,
         child: InkWell(
-          onTap: () => {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => Scaffold(
-                          body: MapView(),
-                        )))
-          },
+          onTap: () => onClick(),
           borderRadius: BorderRadius.circular(248),
           child: Stack(children: [
             Container(
@@ -157,7 +160,10 @@ class _SOS extends StatelessWidget {
   }
 }
 
-class _sendWho extends StatelessWidget {
+class _SendWho extends StatelessWidget {
+  final Function(int) onClickCallback;
+  _SendWho({required this.onClickCallback});
+
   @override
   Widget build(context) {
     return Column(
@@ -188,15 +194,22 @@ class _sendWho extends StatelessWidget {
                 Padding(
                     padding:
                         const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
-                    child: sendWhoCard(where: "가장 가까운\n구급대")),
+                    child: sendWhoCard(
+                      where: "가장 가까운\n구급대",
+                      pageChangeCallback: () => onClickCallback(1),
+                    )),
                 Padding(
                     padding:
                         const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
-                    child: sendWhoCard(where: "주변에 있는\n세이버")),
+                    child: sendWhoCard(
+                        where: "주변에 있는\n세이버",
+                        pageChangeCallback: () => onClickCallback(1))),
                 Padding(
                     padding:
                         const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
-                    child: sendWhoCard(where: "앱에 등록된\n긴급 연락처")),
+                    child: sendWhoCard(
+                        where: "앱에 등록된\n긴급 연락처",
+                        pageChangeCallback: () => onClickCallback(2))),
               ],
             ))
       ],

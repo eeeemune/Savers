@@ -21,7 +21,7 @@ class EmergencyCall extends NeumorphismBtn {
   late Call callNode;
 
   @override
-  void onClick(BuildContext context) {
+  void onClickCallback() {
     print("서버에 update 요청(ID: ${callNode.id})");
   }
 

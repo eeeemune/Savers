@@ -60,7 +60,8 @@ class MapView extends StatelessWidget {
                     ),
                     MapLocationCard()
                   ],
-                )))
+                ))),
+        SizedBox(height: SizeParameters.bottomNavigatorHeight)
       ],
     ));
   }
