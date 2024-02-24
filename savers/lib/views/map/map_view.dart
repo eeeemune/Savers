@@ -1,10 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:savers/theme/theme.dart';
+import 'package:savers/views/map/providers/near_savers_provider.dart';
 import 'package:savers/widgets/top_navigator_bar.dart';
 import 'package:savers/widgets/title.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
-class MapView extends StatelessWidget {
+class MapView extends StatefulWidget {
   const MapView({Key? key}) : super(key: key);
+  State<MapView> createState() => _MapViewState();
+}
+
+class _MapViewState extends State<MapView> {
+  String gogo = "GOGOGO";
+  bool isLoading = true;
+  NearSaversProvider nearSaversProvider = NearSaversProvider();
+  String mapStyle = "";
+  late GoogleMapController mapController;
+
+  Future initNear() async {
+    gogo = await nearSaversProvider.getNum();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initNear().then((value) {
+      setState(() {
+        isLoading = false;
+      });
+    });
+
+    rootBundle.loadString('assets/map_style.txt').then(
+      (value) {
+        mapStyle = value;
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,27 +46,33 @@ class MapView extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       children: [
         const SizedBox(height: 16),
+        const SizedBox(height: 16),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: TopNavigatorBar(),
         ),
         const SizedBox(height: 24),
-        Container(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
-            child: title([
-              TextSpan(
-                  text: "안전거리 ", style: TextStyle(fontWeight: FontWeight.w700)),
-              TextSpan(
-                text: "내에\n",
-              ),
-              TextSpan(
-                  text: "3명",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w700, color: ColorPalette.indigo)),
-              TextSpan(
-                  text: "의 세이버", style: TextStyle(fontWeight: FontWeight.w700)),
-              TextSpan(text: "가 있어요"),
-            ])),
+        isLoading
+            ? CircularProgressIndicator()
+            : Container(
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                child: title([
+                  TextSpan(
+                      text: "안전거리 ",
+                      style: TextStyle(fontWeight: FontWeight.w700)),
+                  TextSpan(
+                    text: "내에\n",
+                  ),
+                  TextSpan(
+                      text: "$gogo",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          color: ColorPalette.indigo)),
+                  TextSpan(
+                      text: "의 세이버",
+                      style: TextStyle(fontWeight: FontWeight.w700)),
+                  TextSpan(text: "가 있어요"),
+                ])),
         const SizedBox(height: 16),
         Expanded(
             child: Container(
@@ -44,11 +82,19 @@ class MapView extends StatelessWidget {
                   alignment: Alignment.bottomCenter,
                   children: [
                     Container(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(30),
+                        child: GoogleMap(
+                          initialCameraPosition: CameraPosition(
+                              target: LatLng(37.4500221, 126.653488), zoom: 18),
+                          onMapCreated: (GoogleMapController controller) {
+                            mapController = controller;
+                            mapController.setMapStyle(mapStyle);
+                          },
+                        ),
+                      ),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          image: DecorationImage(
-                              image: AssetImage("assets/images/Map.png"),
-                              fit: BoxFit.cover),
                           boxShadow: [
                             BoxShadow(
                               color: Color(0x4C6277AE),
@@ -58,7 +104,7 @@ class MapView extends StatelessWidget {
                             )
                           ]),
                     ),
-                    MapLocationCard()
+                    MapLocationCard(),
                   ],
                 ))),
         SizedBox(height: SizeParameters.bottomNavigatorHeight)

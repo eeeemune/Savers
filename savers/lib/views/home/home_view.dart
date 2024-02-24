@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:savers/theme/theme.dart';
+import 'package:savers/views/map/providers/near_savers_provider.dart';
 import 'package:savers/widgets/send_who_card.dart';
 import 'package:savers/widgets/top_navigator_bar.dart';
 import 'package:savers/widgets/title.dart';
@@ -68,7 +69,7 @@ class HomeView extends StatelessWidget {
 }
 
 Widget _where_911() {
-  return const Text("미추홀구 긴급 구조대, 2.4km",
+  return Text("미추홀구 긴급 구조대, 2.4km",
       style: TextStyle(
           fontFamily: "Pretendard",
           fontSize: 16,

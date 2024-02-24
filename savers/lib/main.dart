@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:savers/mainn.dart';
 import 'package:savers/theme/theme.dart';
 import 'package:savers/views/SOS/SOS_view.dart';
@@ -14,13 +15,19 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: GogoNavigate(),
-      theme: ThemeData(
-          backgroundColor: ColorPalette.backGray,
-          scaffoldBackgroundColor: ColorPalette.backGray,
-          fontFamily: "Pretendard"),
-    );
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle(
+            statusBarColor: ColorPalette.backGray,
+            systemNavigationBarColor: ColorPalette.backGray,
+            systemNavigationBarIconBrightness: Brightness.dark,
+            statusBarIconBrightness: Brightness.dark),
+        child: MaterialApp(
+          home: GogoNavigate(),
+          theme: ThemeData(
+              backgroundColor: ColorPalette.backGray,
+              scaffoldBackgroundColor: ColorPalette.backGray,
+              fontFamily: "Pretendard"),
+        ));
   }
 }
 

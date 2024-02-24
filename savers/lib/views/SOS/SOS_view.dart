@@ -1,4 +1,4 @@
-import 'dart:html';
+// import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:savers/views/home/home_view.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -46,7 +46,7 @@ class _Body extends StatelessWidget {
           SizedBox(height: 32),
           _Timer(),
           SizedBox(height: 24),
-          InfoCard(),
+          // InfoCard(),
           SizedBox(height: 56),
           _Title(title: "구조대가 도착하기 전\n응급 조치를 시행하세요."),
           SizedBox(height: 24),
@@ -127,7 +127,7 @@ class _CPRVideo extends StatefulWidget {
 }
 
 class _CPRVideoState extends State<_CPRVideo> {
-  static String youtubeId = '4AoFA19gbLo';
+  static String youtubeId = 'pLvFWLCwn6M';
   final YoutubePlayerController _con = YoutubePlayerController(
     initialVideoId: youtubeId,
     flags: const YoutubePlayerFlags(
@@ -139,12 +139,14 @@ class _CPRVideoState extends State<_CPRVideo> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.symmetric(horizontal: SizeParameters.page_padding),
-        child: Container(
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
-            child: YoutubePlayer(
-              controller: _con,
-            )));
+      padding: EdgeInsets.symmetric(horizontal: SizeParameters.page_padding),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(30),
+        child: YoutubePlayer(
+          controller: _con,
+        ),
+      ),
+    );
   }
 }
 

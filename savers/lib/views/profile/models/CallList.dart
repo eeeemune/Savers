@@ -7,27 +7,27 @@ class CallList {
     {
         "ID": "1",
         "name": "엄마",
-        "callNumber": "010-4313-7962"
+        "callNumber": "010-2352-7962"
     },
     {
         "ID": "2",
-        "name": "엄마2",
-        "callNumber": "010-4313-7962"
+        "name": "아빠",
+        "callNumber": "010-5612-4524"
     },
     {
         "ID": "3",
-        "name": "엄마3",
-        "callNumber": "010-4313-7962"
+        "name": "박길순(지인)",
+        "callNumber": "010-3921-7631"
     },
     {
         "ID": "4",
-        "name": "엄마4",
-        "callNumber": "010-4313-7962"
+        "name": "스티브(지인)",
+        "callNumber": "010-6234-1351"
     },
     {
         "ID": "5",
-        "name": "엄마5",
-        "callNumber": "010-4313-7962"
+        "name": "언니",
+        "callNumber": "010-5231-6734"
     }
 ]''');
   }

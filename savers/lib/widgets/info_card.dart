@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:savers/widgets/models/Member.dart';
 import 'package:savers/theme/theme.dart';
 
 class InfoCard extends StatelessWidget {
+  late Member memberInfo;
+
+  InfoCard({required this.memberInfo});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,7 +21,7 @@ class InfoCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("강심장",
+            Text(memberInfo.name,
                 style: TextStyle(
                   fontSize: 20,
                   color: ColorPalette.white,
@@ -24,11 +29,13 @@ class InfoCard extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                 )),
             SizedBox(height: 16),
-            _lableText(label: "나이", content: "만 67세"),
+            _lableText(label: "나이", content: "만 ${memberInfo.age}세"),
             SizedBox(height: 8),
-            _lableText(label: "성별", content: "여성"),
+            _lableText(
+                label: "성별",
+                content: memberInfo.gender == "Male" ? "남성" : "여성"),
             SizedBox(height: 8),
-            _lableText(label: "기저질환", content: "편도염"),
+            _lableText(label: "기저질환", content: memberInfo.medicalCondition),
             SizedBox(height: 8),
             Text("특이사항",
                 style: TextStyle(
@@ -37,7 +44,7 @@ class InfoCard extends StatelessWidget {
                     fontFamily: "Pretendard",
                     height: 1.5)),
             SizedBox(height: 8),
-            Text("오늘 점심은 가메이 어때요 가메이에는 다이어트에 좋은 연어회덮밥이 있습니당",
+            Text(memberInfo.etc,
                 style: TextStyle(
                     color: ColorPalette.white,
                     fontSize: 16,
